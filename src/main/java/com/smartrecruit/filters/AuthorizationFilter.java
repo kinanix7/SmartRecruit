@@ -20,8 +20,15 @@ public class AuthorizationFilter implements Filter {
 
         // Exclude login and static resources from filtering
         String requestURI = httpRequest.getRequestURI();
-        if (requestURI.endsWith("/LoginController") || requestURI.contains("/static/")) {
+        if (requestURI.endsWith("/RegisterController") || requestURI.endsWith("/LoginController") || requestURI.contains("/static/")) {
             chain.doFilter(request, response);
+            return;
+        }
+
+        // Check if the user is authenticated
+        if (session == null || session.getAttribute("user") == null) {
+            // Redirect to login page if not authenticated
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/LoginController");
             return;
         }
 

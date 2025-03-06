@@ -21,7 +21,7 @@ public class AuthenticationFilter implements Filter {
 
         // Exclude login and static resources from filtering
         String requestURI = httpRequest.getRequestURI();
-        if (requestURI.endsWith("/LoginController") || requestURI.contains("/static/")) {
+        if (requestURI.endsWith("/RegisterController")  || requestURI.endsWith("/LoginController") || requestURI.contains("/static/")) {
             chain.doFilter(request, response);
             return;
         }
